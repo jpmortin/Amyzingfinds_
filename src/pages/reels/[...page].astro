@@ -1,0 +1,63 @@
+---
+import Base from '../../layouts/Base.astro';
+import ReelEmbed from '../../components/ReelEmbed.astro';
+import reels from '../../data/reels.json';
+import { site } from '../../site';
+
+export async function getStaticPaths({ paginate }) {
+  return paginate(reels, { pageSize: 12 });
+}
+const { page } = Astro.props;
+const fmt = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+---
+<Base title={page.currentPage > 1 ? `Reels, page ${page.currentPage}` : 'Reels'} description="Every reel from @amyzingfinds_: food, drink, days out and travel, newest first.">
+  <section class="section">
+    <div class="wrap stack">
+      <div class="head">
+        <div class="stack stack--tight">
+          <span class="eyebrow">Reels</span>
+          <h1>Everything, as it happened</h1>
+          <p class="lede">All {reels.length} reels from Instagram, newest first. The ones that turn into full write-ups live under <a href="/finds/">Finds</a>.</p>
+        </div>
+        <a class="button button--ghost" href={site.instagramUrl} target="_blank" rel="noopener">Follow {site.instagram}</a>
+      </div>
+
+      <ul class="reels">
+        {page.data.map((r) => (
+          <li class="reel">
+            <ReelEmbed url={r.url} title={r.title} />
+            <div class="reel__meta">
+              <div class="reel__line">
+                <time datetime={r.date}>{fmt(r.date)}</time>
+                {r.views && <span>· {r.views} views</span>}
+                {r.gifted && <span class="pill pill--gifted">Gifted</span>}
+              </div>
+              <h3><a href={`/reels/${r.code}/`}>{r.title}</a></h3>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <nav class="pager" aria-label="Pages">
+        {page.url.prev ? <a href={page.url.prev}>← Newer</a> : <span></span>}
+        <span class="pager__count">Page {page.currentPage} of {page.lastPage}</span>
+        {page.url.next ? <a href={page.url.next}>Older →</a> : <span></span>}
+      </nav>
+    </div>
+  </section>
+  <script async src="https://www.instagram.com/embed.js" is:inline></script>
+</Base>
+
+<style>
+  .head { display: flex; justify-content: space-between; align-items: end; gap: 1.5rem; flex-wrap: wrap; }
+  .reels { list-style: none; margin: 0; padding: 0; display: grid; gap: 2.5rem 1.5rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); }
+  .reel { display: flex; flex-direction: column; gap: 0.75rem; min-width: 0; }
+  .reel__meta { display: flex; flex-direction: column; gap: 0.35rem; }
+  .reel__line { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; font-size: 0.8rem; color: var(--mute); }
+  .reel h3 { font-size: 1.3rem; }
+  .reel h3 a { text-decoration: none; }
+  .reel h3 a:hover { color: var(--rose-deep); }
+  .pager { display: flex; justify-content: space-between; align-items: center; gap: 1rem; border-top: 1px solid var(--line); padding-top: 1.5rem; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; }
+  .pager a { text-decoration: none; color: var(--rose-deep); }
+  .pager__count { color: var(--mute); }
+</style>

@@ -1,0 +1,61 @@
+---
+import Base from '../../layouts/Base.astro';
+import ReelEmbed from '../../components/ReelEmbed.astro';
+import reels from '../../data/reels.json';
+import { site } from '../../site';
+
+export async function getStaticPaths() {
+  return reels.map((r, i) => ({ params: { code: r.code }, props: { reel: r, newer: reels[i - 1] ?? null, older: reels[i + 1] ?? null } }));
+}
+const { reel, newer, older } = Astro.props;
+const fmt = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const paragraphs = reel.caption.split('\n').filter((l) => l.trim());
+---
+<Base title={reel.title} description={paragraphs[1] ?? reel.title}>
+  <article>
+    <header class="head">
+      <div class="wrap head__inner">
+        <div class="meta">
+          <span class="eyebrow">Reel · {fmt(reel.date)}</span>
+          {reel.views && <span class="views">{reel.views} views</span>}
+          {reel.gifted && <span class="pill pill--gifted">Gifted visit</span>}
+        </div>
+        <h1>{reel.title}</h1>
+      </div>
+    </header>
+    <div class="wrap body">
+      <div class="video"><ReelEmbed url={reel.url} title={reel.title} /></div>
+      <div class="text">
+        <div class="prose">
+          {paragraphs.slice(1).map((p) => <p>{p}</p>)}
+        </div>
+        <div class="links">
+          <a href={reel.url} target="_blank" rel="noopener">Open on Instagram →</a>
+          <a href="/reels/">All reels</a>
+          <a href="/work-with-me/">Own a place like this? Work with Amy</a>
+        </div>
+        <nav class="prevnext" aria-label="More reels">
+          {newer ? <a href={`/reels/${newer.code}/`}>← {newer.title}</a> : <span></span>}
+          {older ? <a href={`/reels/${older.code}/`}>{older.title} →</a> : <span></span>}
+        </nav>
+      </div>
+    </div>
+  </article>
+  <script async src="https://www.instagram.com/embed.js" is:inline></script>
+</Base>
+
+<style>
+  .head { background: var(--blush); border-bottom: 1px solid var(--line); }
+  .head__inner { padding-block: clamp(2.5rem, 6vw, 4.5rem); display: flex; flex-direction: column; gap: 1rem; }
+  .meta { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+  .views { font-size: 0.8rem; color: var(--mute); }
+  .body { display: grid; gap: 3rem; padding-block: clamp(2.5rem, 6vw, 4rem); grid-template-columns: 1fr; }
+  @media (min-width: 900px) { .body { grid-template-columns: 400px minmax(0, 1fr); align-items: start; } }
+  .video { max-width: 420px; }
+  .text { display: flex; flex-direction: column; gap: 2rem; min-width: 0; }
+  .links { display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem; }
+  .links a { text-decoration: none; color: var(--rose-deep); }
+  .prevnext { display: flex; justify-content: space-between; gap: 1.5rem; border-top: 1px solid var(--line); padding-top: 1.5rem; font-size: 0.9rem; }
+  .prevnext a { text-decoration: none; color: var(--ink); max-width: 45%; }
+  .prevnext a:last-child { text-align: right; }
+</style>

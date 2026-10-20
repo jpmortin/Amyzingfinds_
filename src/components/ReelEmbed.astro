@@ -1,0 +1,15 @@
+---
+// One Instagram reel, via Instagram's official embed. The script tag is included once per page by the parent.
+interface Props { url: string; title: string; captioned?: boolean; }
+const { url, title, captioned = false } = Astro.props;
+---
+<blockquote class="instagram-media" data-instgrm-permalink={url} data-instgrm-version="14" data-instgrm-captioned={captioned ? 'true' : undefined}>
+  <a href={url} target="_blank" rel="noopener">{title} — watch on Instagram</a>
+</blockquote>
+
+<style is:global>
+  .instagram-media { margin: 0 !important; min-width: 0 !important; width: 100% !important; max-width: 540px !important; background: var(--blush) !important; border-radius: 6px !important; }
+  blockquote.instagram-media { aspect-ratio: 4 / 5; display: grid; place-items: center; padding: 1.5rem; text-align: center; font-size: 0.85rem; }
+  blockquote.instagram-media a { color: var(--rose-deep); text-decoration: none; }
+  iframe.instagram-media { aspect-ratio: auto; }
+</style>

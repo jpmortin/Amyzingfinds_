@@ -31,6 +31,10 @@ reel: https://www.instagram.com/reel/XXXX/   # optional
 Body text in Markdown. ## for headings, **bold**, - for lists.
 ```
 
+## Reels
+
+`src/data/reels.json` holds every reel (link, date, views, cleaned caption) and drives the Reels pages and the home-page grid. It is generated from `scripts/reels-raw.json` by `node scripts/build-reels.mjs`. To add new reels: append them to `reels-raw.json` (code, views, date, caption) and re-run the script, or ask Claude to re-scrape the profile. A reel marked `*invite` or `*pr invite` in its caption is labelled "Gifted" automatically.
+
 ## Still to do
 
 - [ ] Replace placeholder portrait and card images with real photos (`public/images/`).
