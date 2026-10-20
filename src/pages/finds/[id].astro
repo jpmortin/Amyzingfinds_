@@ -33,7 +33,7 @@ const reelUrl = d.reel ? d.reel.split('?')[0].replace(/\/?$/, '/') : null;
       </div>
     </header>
 
-    {d.cover && (
+    {d.cover && !reelUrl && (
       <div class="wrap"><img class="cover" src={d.cover} alt={d.coverAlt ?? ''} /></div>
     )}
 

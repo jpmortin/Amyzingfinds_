@@ -5,6 +5,8 @@ area: "Bradford"
 type: shop
 date: 2026-10-20
 summary: "The most beautiful bookshop I have ever set foot in: a Venetian Gothic wool exchange full of books, with a café upstairs that’s worth the trip on its own."
+cover: /images/finds/waterstones-wool-exchange.jpg
+coverAlt: "Gothic arched windows and the gallery café above the bookshelves at Waterstones in Bradford’s Wool Exchange"
 partnership: none
 reel: https://www.instagram.com/reel/Ddj30QZxvN9/
 ---
