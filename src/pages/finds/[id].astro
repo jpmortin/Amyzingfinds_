@@ -14,6 +14,8 @@ const typeLabel: Record<string, string> = {
   restaurant: 'Restaurant', cafe: 'Café', bar: 'Bar', hotel: 'Hotel', 'day-out': 'Day out', event: 'Event', shop: 'Shop',
 };
 const dateStr = d.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+// Instagram's embed wants the bare permalink, without tracking parameters.
+const reelUrl = d.reel ? d.reel.split('?')[0].replace(/\/?$/, '/') : null;
 ---
 <Base title={d.title} description={d.summary}>
   <article>
@@ -37,6 +39,14 @@ const dateStr = d.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'lon
 
     <div class="wrap body">
       <div class="prose">
+        {reelUrl && (
+          <figure class="reel">
+            <blockquote class="instagram-media" data-instgrm-permalink={reelUrl} data-instgrm-version="14">
+              <a href={reelUrl} target="_blank" rel="noopener">Watch this reel on Instagram</a>
+            </blockquote>
+            <script async src="https://www.instagram.com/embed.js" is:inline></script>
+          </figure>
+        )}
         <Content />
       </div>
       <aside class="side">
@@ -75,4 +85,6 @@ const dateStr = d.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'lon
   .side { display: flex; flex-direction: column; gap: 1.75rem; font-size: 0.95rem; border-top: 1px solid var(--line); padding-top: 1.5rem; }
   @media (min-width: 900px) { .side { border-top: 0; border-left: 1px solid var(--line); padding-top: 0; padding-left: 1.5rem; position: sticky; top: 2rem; align-self: start; } }
   .side a { text-decoration: none; }
+  .reel { margin: 0 0 2.5rem; max-width: 540px; }
+  .reel .instagram-media { margin: 0 !important; min-width: 0 !important; width: 100% !important; }
 </style>
