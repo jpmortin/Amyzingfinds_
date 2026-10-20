@@ -12,13 +12,20 @@ export const site = {
 
   // Headline figures shown on the home page and Work With Me. Update monthly.
   stats: {
-    asOf: 'October 2026',
-    monthlyViews: '1M+',
-    uniqueViewers: '726K',
-    interactionRate: '9.8%',
+    asOf: '20 October 2026',
+    window: '28 days to 19 October 2026',
+    monthlyViews: '1.04M',
+    uniqueViewers: '783K',
+    interactions: '101K',
+    interactionRate: '9.7%',
     followerGrowth: '+49%',
+    followers: '5,300',
+    viewerMultiple: '148×', // unique viewers ÷ followers
+    topReel: '443K',
+    bestDay: '206K',
+    lastWeekViews: '346K',
     women: '74%',
     core: '79%', // aged 25–54
-    uk: '59%',
+    uk: '57%',
   },
 };

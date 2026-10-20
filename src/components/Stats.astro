@@ -5,25 +5,28 @@ interface Props { compact?: boolean; }
 const { compact = false } = Astro.props;
 const items = compact
   ? [
-      { n: s.monthlyViews, l: 'views a month' },
+      { n: s.monthlyViews, l: 'views in the last month' },
       { n: s.uniqueViewers, l: 'unique viewers' },
       { n: s.interactionRate, l: 'interactions per view' },
     ]
   : [
-      { n: s.monthlyViews, l: 'Instagram views a month' },
-      { n: s.uniqueViewers, l: 'unique viewers, last 30 days' },
-      { n: s.interactionRate, l: 'interactions per view' },
+      { n: s.monthlyViews, l: 'Instagram views in the last month' },
+      { n: s.uniqueViewers, l: 'unique viewers reached' },
+      { n: s.interactions, l: 'likes, comments, saves & shares' },
       { n: s.followerGrowth, l: 'follower growth in a month' },
+      { n: s.viewerMultiple, l: 'more viewers than followers' },
+      { n: s.topReel, l: 'views on a single reel' },
+      { n: s.bestDay, l: 'views in a single day' },
       { n: s.women, l: 'women' },
       { n: s.core, l: 'aged 25–54' },
     ];
 ---
-<ul class="stats" aria-label={`Audience figures, ${s.asOf}`}>
+<ul class:list={['stats', { 'stats--full': !compact }]} aria-label={`Audience figures, ${s.asOf}`}>
   {items.map((it) => (
     <li><b>{it.n}</b><span>{it.l}</span></li>
   ))}
 </ul>
-<p class="stats__src">Instagram professional dashboard, {s.asOf}.</p>
+<p class="stats__src">Instagram professional dashboard, {s.window}. Audience figures from followers; reach figures from all viewers.</p>
 
 <style>
   .stats {
@@ -37,6 +40,13 @@ const items = compact
   }
   .stats li:first-child { padding-left: 0; }
   .stats li:last-child { border-right: 0; }
+  @media (min-width: 700px) {
+    .stats--full { grid-template-columns: repeat(3, 1fr); }
+    .stats--full li { border-bottom: 1px solid var(--line); }
+    .stats--full li:nth-child(3n) { border-right: 0; }
+    .stats--full li:nth-child(3n + 1) { padding-left: 0; }
+    .stats--full li:nth-last-child(-n + 3) { border-bottom: 0; }
+  }
   .stats b {
     font-family: var(--display); font-weight: 500; font-size: 2.75rem; line-height: 1;
     color: var(--rose-deep); font-variant-numeric: tabular-nums;
