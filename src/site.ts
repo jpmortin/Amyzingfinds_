@@ -6,7 +6,7 @@ export const site = {
     'Amy shares the restaurants, cafés, hotels and days out across Leeds, Yorkshire and beyond that are worth leaving the house for.',
   instagram: '@amyzingfinds_',
   instagramUrl: 'https://www.instagram.com/amyzingfinds_/',
-  email: 'hello@amyzingfinds.co.uk', // placeholder until the domain + email are set up
+  email: 'a.e.brawn@hotmail.co.uk', // swap for hello@amyzingfinds.co.uk once the domain is set up
   // Enquiry form endpoint. Create a free form at formspree.io and paste its endpoint here.
   formEndpoint: 'https://formspree.io/f/YOUR_FORM_ID',
 
