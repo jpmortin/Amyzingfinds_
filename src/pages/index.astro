@@ -1,0 +1,81 @@
+---
+import Base from '../layouts/Base.astro';
+import Wordmark from '../components/Wordmark.astro';
+import FindCard from '../components/FindCard.astro';
+import InstagramGrid from '../components/InstagramGrid.astro';
+import Stats from '../components/Stats.astro';
+import { getCollection } from 'astro:content';
+import { site } from '../site';
+
+const finds = (await getCollection('finds', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+---
+<Base title={site.name}>
+  <section class="hero">
+    <div class="wrap hero__inner">
+      <div class="hero__text">
+        <span class="eyebrow">Food · Hotels · Days out · Yorkshire &amp; beyond</span>
+        <h1 class="hero__title"><Wordmark size="hero" /></h1>
+        <p class="lede hero__lede">The restaurants, stays and days out worth leaving the house for — found by Amy, filmed as they happen, and shared with a million people a month.</p>
+        <div class="hero__actions">
+          <a class="button" href="/finds/">Read the finds</a>
+          <a class="button button--ghost" href="/work-with-me/">Work with me</a>
+        </div>
+      </div>
+      <div class="hero__media" aria-hidden="true">
+        <div class="hero__arch"><span>Portrait of Amy</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap stack">
+      <div class="split">
+        <div class="stack stack--tight">
+          <span class="eyebrow">Latest finds</span>
+          <h2>Recently loved</h2>
+        </div>
+        <a href="/finds/" class="more">All finds →</a>
+      </div>
+      <div class="grid">
+        {finds.map((f) => <FindCard find={f} />)}
+      </div>
+    </div>
+  </section>
+
+  <InstagramGrid />
+
+  <section class="section section--blush">
+    <div class="wrap stack">
+      <div class="stack stack--tight">
+        <span class="eyebrow">For brands &amp; venues</span>
+        <h2>An audience that actually goes</h2>
+        <p class="lede">Mostly women, mostly 25 to 54, mostly in Yorkshire — the people who book the table, plan the weekend and bring three friends.</p>
+      </div>
+      <Stats compact />
+      <div><a class="button" href="/work-with-me/">See packages and rates</a></div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero { background: linear-gradient(135deg, #F4E4E1 0%, #FBF6F2 55%, #F7ECE8 100%); border-bottom: 1px solid var(--line); }
+  .hero__inner {
+    display: grid; gap: 3rem; align-items: center; padding-block: clamp(3rem, 8vw, 6rem);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 860px) { .hero__inner { grid-template-columns: 1.3fr 1fr; } }
+  .hero__text { display: flex; flex-direction: column; gap: 1.5rem; min-width: 0; }
+  .hero__title { line-height: 1; }
+  .hero__lede { max-width: 30ch; }
+  .hero__actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .hero__media { display: flex; justify-content: center; }
+  .hero__arch {
+    width: min(100%, 380px); aspect-ratio: 4 / 5; border-radius: 190px 190px 6px 6px;
+    background: linear-gradient(160deg, #E9C9C8, #D9A7AB); display: grid; place-items: center;
+  }
+  .hero__arch span { font-family: var(--display); font-style: italic; color: #7A4A53; font-size: 1.25rem; }
+  .split { display: flex; justify-content: space-between; align-items: end; gap: 1rem; flex-wrap: wrap; }
+  .more { text-decoration: none; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--rose-deep); }
+</style>

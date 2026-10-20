@@ -1,0 +1,132 @@
+---
+import Base from '../layouts/Base.astro';
+import Stats from '../components/Stats.astro';
+import { site } from '../site';
+
+const packages = [
+  { name: 'The Reel', from: '£300', what: 'One dedicated reel on @amyzingfinds_, your handle tagged and location pinned, with a performance summary afterwards.' },
+  { name: 'The Visit', from: '£425', what: 'A reel plus three to five stories on the day with a link sticker, kept as a 24-hour highlight. Built for bookings.' },
+  { name: 'The Collab', from: '£550', what: 'A reel co-posted with Leeds Living, appearing on both accounts and reaching two largely separate audiences at once.' },
+  { name: 'The Season', from: '£850 / month', what: 'A monthly partnership: two reels, eight stories, link in bio and a monthly report. For launches, menus and venues with a story that unfolds.' },
+];
+const extras = [
+  ['Story set', '3–5 stories on the day with link sticker', '£140'],
+  ['Content licence', 'Use the footage on your own channels, site and ads for 12 months', '+£150 per asset'],
+  ['Event coverage', 'Half a day on site, one reel plus live stories', '£500'],
+];
+---
+<Base title="Work with me" description="Packages and rates for restaurants, hotels, attractions and brands who want to reach Amy’s audience of a million viewers a month.">
+  <section class="section">
+    <div class="wrap stack">
+      <div class="stack stack--tight">
+        <span class="eyebrow">Work with me</span>
+        <h1>For places with something worth finding</h1>
+        <p class="lede">Restaurants, cafés and bars. Hotels and stays. Attractions, events, and food and drink brands with a Northern story to tell.</p>
+      </div>
+      <Stats />
+    </div>
+  </section>
+
+  <section class="section section--blush">
+    <div class="wrap stack">
+      <div class="stack stack--tight">
+        <span class="eyebrow">How it works</span>
+        <h2>A real visit, filmed as it happens</h2>
+      </div>
+      <div class="how">
+        <div><h3>A real visit</h3><p>Amy comes, orders, wanders and films it as it happens. Nothing staged, nothing read off a card — which is exactly why people trust it.</p></div>
+        <div><h3>A reel built to travel</h3><p>Short, bright, edited for the first two seconds. Captions name the place, the dish and how to find it, so the post works as a recommendation, not an advert.</p></div>
+        <div><h3>Content you keep</h3><p>Every package comes with a performance summary, and the footage can be licensed for your own channels, website and ads.</p></div>
+      </div>
+      <p class="small">Paid partnerships and gifted visits are always disclosed, in line with ASA and CMA guidance. Amy keeps the final say on wording.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap stack">
+      <div class="stack stack--tight">
+        <span class="eyebrow">Packages · Autumn 2026</span>
+        <h2>Pick the shape that fits</h2>
+      </div>
+      <div class="packs">
+        {packages.map((p) => (
+          <div class="pack">
+            <div class="pack__head"><h3>{p.name}</h3><span class="pack__from">from {p.from}</span></div>
+            <p>{p.what}</p>
+          </div>
+        ))}
+      </div>
+      <div class="extras">
+        <table>
+          <thead><tr><th>Add-on</th><th>What’s included</th><th>From</th></tr></thead>
+          <tbody>
+            {extras.map(([n, w, c]) => <tr><td>{n}</td><td>{w}</td><td>{c}</td></tr>)}
+          </tbody>
+        </table>
+      </div>
+      <p class="small">Prices exclude VAT where applicable. Travel outside West Yorkshire charged at cost. Gifted visits for smaller independents by arrangement. Rates reviewed quarterly.</p>
+    </div>
+  </section>
+
+  <section class="section section--plum" id="enquire">
+    <div class="wrap enquire">
+      <div class="stack">
+        <span class="eyebrow">Enquire</span>
+        <h2>Tell me about your place</h2>
+        <p>A few lines is plenty. Say what you are, where you are and roughly what you had in mind, and Amy will come back within a couple of working days.</p>
+        <p>Or email <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+      </div>
+      <form class="form" action={site.formEndpoint} method="POST">
+        <label>Your name<input type="text" name="name" id="f-name" required autocomplete="name" /></label>
+        <label>Business or brand<input type="text" name="business" id="f-business" required autocomplete="organization" /></label>
+        <label>Email<input type="email" name="email" id="f-email" required autocomplete="email" /></label>
+        <label>What are you thinking?
+          <select name="package" id="f-package">
+            <option>Not sure yet</option>
+            <option>The Reel</option>
+            <option>The Visit</option>
+            <option>The Collab with Leeds Living</option>
+            <option>The Season</option>
+            <option>Event coverage</option>
+            <option>Something else</option>
+          </select>
+        </label>
+        <label>Tell me a bit more<textarea name="message" id="f-message" rows="5"></textarea></label>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true" />
+        <button class="button button--light" type="submit">Send enquiry</button>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .how { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
+  .how h3 { color: var(--rose-deep); font-size: 1.5rem; margin-bottom: 0.4rem; }
+  .how p { font-size: 0.98rem; color: var(--ink); }
+  .small { font-size: 0.85rem; color: var(--mute); max-width: 70ch; }
+  .packs { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); }
+  .pack { background: var(--blush); padding: 1.75rem; border-radius: 6px; display: flex; flex-direction: column; gap: 0.75rem; min-width: 0; }
+  .pack__head { display: flex; flex-direction: column; gap: 0.25rem; }
+  .pack h3 { font-size: 1.75rem; color: var(--rose-deep); }
+  .pack__from { font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); }
+  .pack p { font-size: 0.95rem; color: var(--ink); }
+  .extras { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.95rem; min-width: 480px; }
+  th { text-align: left; font-weight: 500; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--rose-deep); padding: 0.75rem 0; border-bottom: 1px solid var(--rose); }
+  td { padding: 0.8rem 1rem 0.8rem 0; border-bottom: 1px solid var(--line); color: var(--ink); vertical-align: top; }
+  td:first-child { color: var(--plum); white-space: nowrap; }
+  td:last-child, th:last-child { text-align: right; white-space: nowrap; color: var(--plum); }
+  .enquire { display: grid; gap: 3rem; grid-template-columns: 1fr; }
+  @media (min-width: 860px) { .enquire { grid-template-columns: 1fr 1.1fr; } }
+  .enquire a { color: var(--paper); }
+  .form { display: flex; flex-direction: column; gap: 1rem; }
+  .form label { display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; color: #D9A7AB; }
+  .form input, .form select, .form textarea {
+    font: inherit; font-family: var(--body); font-size: 1rem; letter-spacing: 0; text-transform: none;
+    padding: 0.7rem 0.9rem; border-radius: 4px; border: 1px solid #6B525C; background: #46323B; color: var(--paper);
+  }
+  .form input:focus, .form select:focus, .form textarea:focus { outline: 2px solid var(--rose); outline-offset: 2px; }
+  .hp { position: absolute; left: -9999px; }
+  .button--light { background: var(--paper); color: var(--plum); border-color: var(--paper); align-self: start; }
+  .button--light:hover { background: var(--rose); border-color: var(--rose); color: var(--paper); }
+</style>

@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../site';
+---
+<Base title="Privacy" description="What this website collects, which is very little.">
+  <section class="section">
+    <div class="wrap prose">
+      <span class="eyebrow">Small print</span>
+      <h1>Privacy</h1>
+      <p class="lede">This site collects as little as possible.</p>
+      <h2>What we collect</h2>
+      <p>If you send an enquiry through the form, we receive what you typed: your name, business, email address and message. It’s used to reply to you and for nothing else, and isn’t shared with anyone.</p>
+      <p>The site itself doesn’t set tracking cookies. The hosting provider keeps standard server logs (IP address, pages requested) for a short period for security and performance.</p>
+      <h2>Third parties</h2>
+      <p>Fonts are loaded from Google Fonts. Links to Instagram take you to Instagram, whose own privacy policy applies there.</p>
+      <h2>Your rights</h2>
+      <p>You can ask what we hold about you, or ask us to delete it, by emailing <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+    </div>
+  </section>
+</Base>

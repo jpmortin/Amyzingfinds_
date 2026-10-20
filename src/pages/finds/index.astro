@@ -1,0 +1,33 @@
+---
+import Base from '../../layouts/Base.astro';
+import FindCard from '../../components/FindCard.astro';
+import { getCollection } from 'astro:content';
+
+const finds = (await getCollection('finds', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const areas = [...new Set(finds.map((f) => f.data.area))].sort();
+---
+<Base title="Finds" description="Every place Amy has written up: restaurants, cafés, hotels and days out across Leeds, Yorkshire and beyond.">
+  <section class="section">
+    <div class="wrap stack">
+      <div class="stack stack--tight">
+        <span class="eyebrow">The finds</span>
+        <h1>Places worth the trip</h1>
+        <p class="lede">Every write-up is a place I’ve been and would send a friend to. Where a visit was paid for or gifted, it says so at the top.</p>
+      </div>
+      {areas.length > 1 && (
+        <p class="areas">
+          <span class="eyebrow">Areas:</span>
+          {areas.map((a) => <span class="pill">{a}</span>)}
+        </p>
+      )}
+      <div class="grid">
+        {finds.map((f) => <FindCard find={f} />)}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .areas { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; max-width: none; }
+</style>

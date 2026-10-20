@@ -1,0 +1,114 @@
+---
+import '../styles/global.css';
+import Wordmark from '../components/Wordmark.astro';
+import { site } from '../site';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = site.description } = Astro.props;
+const pageTitle = title === site.name ? site.name : `${title} · ${site.name}`;
+const path = Astro.url.pathname;
+const nav = [
+  { href: '/finds/', label: 'Finds' },
+  { href: '/about/', label: 'About' },
+  { href: '/work-with-me/', label: 'Work with me' },
+  { href: '/contact/', label: 'Contact' },
+];
+---
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400..700;1,400..700&family=Rubik:wght@300..500&display=swap" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="header">
+      <div class="wrap header__inner">
+        <a href="/" class="header__brand"><Wordmark size="nav" /></a>
+        <nav aria-label="Main">
+          <ul class="nav">
+            {nav.map((item) => (
+              <li><a href={item.href} aria-current={path.startsWith(item.href) ? 'page' : undefined}>{item.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <div class="wrap footer__inner">
+        <div class="stack stack--tight">
+          <Wordmark size="nav" />
+          <p class="footer__tag">{site.tagline}</p>
+        </div>
+        <div class="footer__cols">
+          <div class="stack stack--tight">
+            <span class="eyebrow">Follow</span>
+            <a href={site.instagramUrl} rel="me noopener" target="_blank">Instagram {site.instagram}</a>
+          </div>
+          <div class="stack stack--tight">
+            <span class="eyebrow">Enquiries</span>
+            <a href={`mailto:${site.email}`}>{site.email}</a>
+            <a href="/work-with-me/">Work with me</a>
+          </div>
+          <div class="stack stack--tight">
+            <span class="eyebrow">Small print</span>
+            <a href="/disclosure/">Paid partnerships &amp; gifting</a>
+            <a href="/privacy/">Privacy</a>
+          </div>
+        </div>
+        <p class="footer__legal">© {new Date().getFullYear()} {site.name}. Leeds, Yorkshire.</p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .skip {
+    position: absolute; left: 1rem; top: -4rem; background: var(--plum); color: var(--paper);
+    padding: 0.5rem 1rem; border-radius: 4px; z-index: 100;
+  }
+  .skip:focus { top: 1rem; }
+
+  .header { border-bottom: 1px solid var(--line); background: var(--paper); }
+  .header__inner {
+    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+    padding-block: 1.1rem; flex-wrap: wrap;
+  }
+  .header__brand { text-decoration: none; }
+  .nav {
+    list-style: none; margin: 0; padding: 0; display: flex; gap: clamp(1rem, 3vw, 2.25rem); flex-wrap: wrap;
+  }
+  .nav a {
+    text-decoration: none; font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase;
+    font-weight: 400; color: var(--ink); padding-block: 0.25rem; border-bottom: 1px solid transparent;
+  }
+  .nav a:hover, .nav a[aria-current="page"] { color: var(--rose-deep); border-bottom-color: var(--rose); }
+
+  .footer { background: var(--blush); border-top: 1px solid var(--line); margin-top: 4rem; }
+  .footer__inner { padding-block: 3.5rem 2.5rem; display: flex; flex-direction: column; gap: 2.5rem; }
+  .footer__tag { font-family: var(--display); font-style: italic; font-size: 1.15rem; color: var(--ink); }
+  .footer__cols {
+    display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    font-size: 0.95rem;
+  }
+  .footer__cols a { text-decoration: none; color: var(--ink); }
+  .footer__cols a:hover { color: var(--rose-deep); }
+  .footer__legal { font-size: 0.8rem; color: var(--mute); }
+</style>

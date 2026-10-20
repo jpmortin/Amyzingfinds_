@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../site';
+---
+<Base title="Contact" description="How to reach Amy for collaborations, press and general enquiries.">
+  <section class="section">
+    <div class="wrap contact">
+      <div class="stack">
+        <span class="eyebrow">Contact</span>
+        <h1>Say hello</h1>
+        <p class="lede">For brand and venue partnerships, press, or to tell me about somewhere I should know about.</p>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <span class="eyebrow">Collaborations &amp; brand enquiries</span>
+          <p>Packages, rates and the enquiry form are on the Work with me page.</p>
+          <a class="button" href="/work-with-me/#enquire">Enquire about a collaboration</a>
+        </div>
+        <div class="card">
+          <span class="eyebrow">Everything else</span>
+          <p>Press, recommendations, or just to say hello.</p>
+          <a class="mail" href={`mailto:${site.email}`}>{site.email}</a>
+        </div>
+        <div class="card">
+          <span class="eyebrow">Instagram</span>
+          <p>Where the finds appear first.</p>
+          <a class="mail" href={site.instagramUrl} target="_blank" rel="noopener">{site.instagram}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact { display: flex; flex-direction: column; gap: 3rem; }
+  .cards { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
+  .card { background: var(--blush); padding: 1.75rem; border-radius: 6px; display: flex; flex-direction: column; gap: 0.9rem; align-items: start; }
+  .card p { color: var(--ink); font-size: 0.98rem; }
+  .mail { font-family: var(--display); font-size: 1.5rem; text-decoration: none; color: var(--plum); word-break: break-all; }
+</style>

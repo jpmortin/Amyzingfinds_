@@ -1,0 +1,47 @@
+---
+import { site } from '../site';
+const s = site.stats;
+interface Props { compact?: boolean; }
+const { compact = false } = Astro.props;
+const items = compact
+  ? [
+      { n: s.monthlyViews, l: 'views a month' },
+      { n: s.uniqueViewers, l: 'unique viewers' },
+      { n: s.interactionRate, l: 'interactions per view' },
+    ]
+  : [
+      { n: s.monthlyViews, l: 'Instagram views a month' },
+      { n: s.uniqueViewers, l: 'unique viewers, last 30 days' },
+      { n: s.interactionRate, l: 'interactions per view' },
+      { n: s.followerGrowth, l: 'follower growth in a month' },
+      { n: s.women, l: 'women' },
+      { n: s.core, l: 'aged 25–54' },
+    ];
+---
+<ul class="stats" aria-label={`Audience figures, ${s.asOf}`}>
+  {items.map((it) => (
+    <li><b>{it.n}</b><span>{it.l}</span></li>
+  ))}
+</ul>
+<p class="stats__src">Instagram professional dashboard, {s.asOf}.</p>
+
+<style>
+  .stats {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  }
+  .stats li {
+    padding: 1.25rem 1rem 1.25rem 0; display: flex; flex-direction: column; gap: 0.2rem;
+    border-right: 1px solid var(--line); padding-left: 1rem;
+  }
+  .stats li:first-child { padding-left: 0; }
+  .stats li:last-child { border-right: 0; }
+  .stats b {
+    font-family: var(--display); font-weight: 500; font-size: 2.75rem; line-height: 1;
+    color: var(--rose-deep); font-variant-numeric: tabular-nums;
+  }
+  .stats span { font-size: 0.85rem; color: var(--ink); }
+  .stats__src { font-size: 0.75rem; color: var(--mute); margin-top: 0.6rem; }
+  @media (max-width: 600px) { .stats li { border-right: 0; border-bottom: 1px solid var(--line); padding-left: 0; } .stats li:last-child { border-bottom: 0; } }
+</style>

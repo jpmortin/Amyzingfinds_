@@ -1,0 +1,46 @@
+---
+import type { CollectionEntry } from 'astro:content';
+interface Props { find: CollectionEntry<'finds'>; }
+const { find } = Astro.props;
+const d = find.data;
+const typeLabel: Record<string, string> = {
+  restaurant: 'Restaurant', cafe: 'Café', bar: 'Bar', hotel: 'Hotel', 'day-out': 'Day out', event: 'Event', shop: 'Shop',
+};
+const dateStr = d.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<article class="card">
+  <a href={`/finds/${find.id}/`} class="card__media" aria-hidden="true" tabindex="-1">
+    {d.cover ? <img src={d.cover} alt={d.coverAlt ?? ''} loading="lazy" /> : <div class="card__placeholder"><span>{typeLabel[d.type]}</span></div>}
+  </a>
+  <div class="card__body">
+    <div class="card__meta">
+      <span class="eyebrow">{d.area} · {typeLabel[d.type]}</span>
+      {d.partnership === 'paid' && <span class="pill pill--paid">Paid partnership</span>}
+      {d.partnership === 'gifted' && <span class="pill pill--gifted">Gifted</span>}
+    </div>
+    <h3><a href={`/finds/${find.id}/`}>{d.title}</a></h3>
+    <p class="card__summary">{d.summary}</p>
+    <time datetime={d.date.toISOString()} class="card__date">{dateStr}</time>
+  </div>
+</article>
+
+<style>
+  .card { display: flex; flex-direction: column; gap: 1rem; min-width: 0; }
+  .card__media { display: block; text-decoration: none; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 4px; background: var(--blush); }
+  .card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+  .card:hover .card__media img { transform: scale(1.03); }
+  .card__placeholder {
+    width: 100%; height: 100%; display: grid; place-items: center;
+    background: linear-gradient(160deg, #E9C9C8, #D9A7AB);
+  }
+  .card__placeholder span {
+    font-family: var(--display); font-style: italic; font-size: 1.5rem; color: #7A4A53;
+  }
+  .card__body { display: flex; flex-direction: column; gap: 0.5rem; }
+  .card__meta { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
+  .card h3 { font-size: 1.55rem; }
+  .card h3 a { text-decoration: none; }
+  .card h3 a:hover { color: var(--rose-deep); }
+  .card__summary { font-size: 0.98rem; color: var(--ink); }
+  .card__date { font-size: 0.8rem; color: var(--mute); }
+</style>

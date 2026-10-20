@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../site';
+---
+<Base title="About" description="Who Amy is, why the account is called Amyzing Finds, and what she will and won’t write about.">
+  <section class="section">
+    <div class="wrap about">
+      <div class="about__media" aria-hidden="true">
+        <div class="arch"><span>Portrait of Amy</span></div>
+      </div>
+      <div class="stack">
+        <span class="eyebrow">About</span>
+        <h1>The friend who always knows somewhere lovely</h1>
+        <p class="lede">I’m Amy. I live in Leeds, I like a long lunch and a good hotel bath, and I have strong opinions about Yorkshire puddings.</p>
+        <p>Amyzing Finds started as a way of keeping track of the places I’d recommend to friends: the café that does the proper cardamom bun, the pub twenty-five minutes out of town with the fire, the hotel in the Dales where nobody rushes you. It turned out rather a lot of people wanted the same recommendations, and now about a million of them watch every month.</p>
+        <p>The name is the obvious pun, and I’ve made my peace with it. The finds are the point: places that are worth the trip, found by going, filmed as they happen, and written up without the fluff.</p>
+        <h2 class="about__h2">What I will and won’t do</h2>
+        <p>I only feature places I’d send a friend to. If a visit was paid for or gifted, it says so at the top of the post and the top of the article, every time. Nobody gets to approve the wording. If I didn’t like somewhere, I just don’t write about it.</p>
+        <p>I’m happy to be invited, and I’m happy to be paid for my time, but the recommendation itself isn’t for sale. That’s the whole reason it’s worth anything.</p>
+        <div class="about__cta">
+          <a class="button" href="/work-with-me/">Work with me</a>
+          <a class="button button--ghost" href={site.instagramUrl} target="_blank" rel="noopener">Follow on Instagram</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .about { display: grid; gap: 3rem; grid-template-columns: 1fr; align-items: start; }
+  @media (min-width: 860px) { .about { grid-template-columns: 360px 1fr; } }
+  .arch {
+    width: min(100%, 360px); aspect-ratio: 4 / 5; border-radius: 180px 180px 6px 6px;
+    background: linear-gradient(160deg, #E9C9C8, #D9A7AB); display: grid; place-items: center;
+  }
+  .arch span { font-family: var(--display); font-style: italic; color: #7A4A53; font-size: 1.2rem; }
+  .about__h2 { font-size: 2rem; margin-top: 1rem; }
+  .about__cta { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.5rem; }
+</style>

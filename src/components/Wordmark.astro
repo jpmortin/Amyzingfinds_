@@ -1,0 +1,24 @@
+---
+// The wordmark. "amy" carries the accent so the name reads itself first and the
+// pun (amy → amazing) lands second. No sparkle, no asterisk.
+interface Props { size?: 'nav' | 'hero'; }
+const { size = 'nav' } = Astro.props;
+---
+<span class={`wordmark wordmark--${size}`} aria-label="Amyzing Finds">
+  <span class="wordmark__amy">amy</span><span class="wordmark__rest">zing finds</span>
+</span>
+
+<style>
+  .wordmark {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    white-space: nowrap;
+    color: var(--plum);
+  }
+  .wordmark--nav { font-size: 1.75rem; }
+  .wordmark--hero { font-size: clamp(3rem, 7.5vw, 6.5rem); white-space: normal; }
+  .wordmark__amy { color: var(--rose-deep); }
+</style>

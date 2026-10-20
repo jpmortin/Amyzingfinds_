@@ -1,0 +1,39 @@
+---
+// Latest-on-Instagram grid.
+// Today this renders six placeholder tiles. Once Amy connects her account to a feed
+// service (Behold is the simplest for a custom site), replace `tiles` with a fetch of
+// that feed's JSON at build time and map it to {href, image, alt}.
+import { site } from '../site';
+const tiles = Array.from({ length: 6 }, (_, i) => ({ href: site.instagramUrl, image: null, alt: `Instagram post ${i + 1}` }));
+---
+<section class="section">
+  <div class="wrap stack">
+    <div class="ig__head">
+      <div class="stack stack--tight">
+        <span class="eyebrow">Latest on Instagram</span>
+        <h2>Watched by a million people a month</h2>
+      </div>
+      <a class="button button--ghost" href={site.instagramUrl} target="_blank" rel="noopener">Follow {site.instagram}</a>
+    </div>
+    <ul class="ig">
+      {tiles.map((t) => (
+        <li>
+          <a href={t.href} target="_blank" rel="noopener" aria-label={t.alt}>
+            {t.image ? <img src={t.image} alt={t.alt} loading="lazy" /> : <span class="ig__ph"></span>}
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p class="ig__note">Live feed coming soon — these tiles will fill with Amy’s latest reels automatically.</p>
+  </div>
+</section>
+
+<style>
+  .ig__head { display: flex; justify-content: space-between; align-items: end; gap: 1.5rem; flex-wrap: wrap; }
+  .ig { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; grid-template-columns: repeat(3, 1fr); }
+  @media (min-width: 720px) { .ig { grid-template-columns: repeat(6, 1fr); } }
+  .ig a { display: block; aspect-ratio: 4 / 5; border-radius: 4px; overflow: hidden; background: var(--blush); }
+  .ig img { width: 100%; height: 100%; object-fit: cover; }
+  .ig__ph { display: block; width: 100%; height: 100%; background: linear-gradient(160deg, #F4E4E1, #E9C9C8); }
+  .ig__note { font-size: 0.8rem; color: var(--mute); }
+</style>
