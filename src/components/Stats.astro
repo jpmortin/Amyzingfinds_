@@ -5,16 +5,16 @@ interface Props { compact?: boolean; }
 const { compact = false } = Astro.props;
 const items = compact
   ? [
-      { n: s.monthlyViews, l: 'views in the last month' },
-      { n: s.uniqueViewers, l: 'unique viewers' },
+      { n: s.viewsSinceJuly, l: 'views since July' },
+      { n: s.viewersSinceJuly, l: 'different accounts reached' },
       { n: s.interactionRate, l: 'interactions per view' },
     ]
   : [
-      { n: s.monthlyViews, l: 'Instagram views in the last month' },
-      { n: s.uniqueViewers, l: 'unique viewers reached' },
+      { n: s.viewsSinceJuly, l: 'Instagram views since July' },
+      { n: s.viewersSinceJuly, l: 'different accounts reached' },
+      { n: s.bestThirtyDays, l: 'views in her best 30 days' },
       { n: s.interactions, l: 'likes, comments, saves & shares' },
-      { n: s.followerGrowth, l: 'follower growth in a month' },
-      { n: s.viewerMultiple, l: 'more viewers than followers' },
+      { n: s.newFollowers, l: 'new followers this year' },
       { n: s.topReel, l: 'views on a single reel' },
       { n: s.bestDay, l: 'views in a single day' },
       { n: s.women, l: 'women' },

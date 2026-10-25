@@ -11,19 +11,19 @@ export const site = {
   formEndpoint: 'https://formspree.io/f/YOUR_FORM_ID',
 
   // Headline figures shown on the home page and Work With Me. Update monthly.
+  // Stitched from the dated exports in D:\amyzingfinds_ data (1 Jan – 24 Oct 2026). Update after each export.
   stats: {
-    asOf: '20 October 2026',
-    window: '28 days to 19 October 2026',
-    monthlyViews: '1.04M',
-    uniqueViewers: '783K',
-    interactions: '101K',
-    interactionRate: '9.7%',
-    followerGrowth: '+49%',
-    followers: '5,300',
-    viewerMultiple: '148×', // unique viewers ÷ followers
+    asOf: '25 October 2026',
+    window: '1 July – 24 October 2026',
+    viewsSinceJuly: '2.4M',
+    viewersSinceJuly: '1.6M',
+    bestThirtyDays: '1.14M', // 22 Sep – 21 Oct
+    interactions: '179K',
+    interactionRate: '9%',
+    newFollowers: '+4,900', // 2026 to date
     topReel: '443K',
     bestDay: '206K',
-    lastWeekViews: '346K',
+    daysOver50k: '11',
     women: '74%',
     core: '79%', // aged 25–54
     uk: '57%',
