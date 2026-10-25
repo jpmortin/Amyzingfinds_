@@ -6,12 +6,12 @@ import { site } from '../site';
 const packages = [
   { name: 'The Reel', from: '£200', what: 'Amy visits, films and edits one dedicated reel on @amyzingfinds_, your handle tagged and location pinned, with a performance summary afterwards. Stays on the grid.' },
   { name: 'The Visit', from: '£275', what: 'A reel plus three to five stories on the day with a link sticker. The most effective single-visit package, built for bookings.' },
-  { name: 'The Season', from: '£700 / month', what: 'A monthly partnership: two reels, eight stories, link in bio and a monthly report. For launches, menus and venues with a story that unfolds.' },
+  { name: 'The Season', from: 'POA', what: 'A monthly partnership designed around you: a combination of reels, carousels and stories across the month, link in bio, first call on launches and a monthly report.' },
 ];
 const extras = [
+  ['Carousel', 'An in-feed photo carousel, annotated with captions and copy. Good for menus, launches and offers', '£200'],
   ['Usage licence', 'Use the reel in your own channels, website and paid ads. Non-exclusive, three months, UK', '+£125'],
   ['Story set', '3–5 stories on the day with link sticker, on its own', '£100'],
-  ['Collab with Leeds Living', 'One reel posted jointly to @amyzingfinds_ and @leedsliving, reaching both audiences', '£450'],
   ['Event coverage', 'Half a day on site, one reel plus live stories', '£400'],
 ];
 ---
@@ -51,7 +51,7 @@ const extras = [
       <div class="packs">
         {packages.map((p) => (
           <div class="pack">
-            <div class="pack__head"><h3>{p.name}</h3><span class="pack__from">from {p.from}</span></div>
+            <div class="pack__head"><h3>{p.name}</h3><span class="pack__from">{p.from === 'POA' ? 'Price on application' : `from ${p.from}`}</span></div>
             <p>{p.what}</p>
           </div>
         ))}
@@ -86,7 +86,7 @@ const extras = [
             <option>The Reel</option>
             <option>The Visit</option>
             <option>The Season</option>
-            <option>Collab with Leeds Living</option>
+            <option>Carousel</option>
             <option>Event coverage</option>
             <option>Something else</option>
           </select>
